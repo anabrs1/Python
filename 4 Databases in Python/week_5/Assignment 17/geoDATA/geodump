@@ -1,0 +1,40 @@
+#produc a file in a particular format from a existen db json
+import sqlite3
+import json
+import codecs
+
+conn = sqlite3.connect('geodata.sqlite')
+cur = conn.cursor()
+ # retiee all the rows the cursor goes repeatelly in each row in the table
+cur.execute('SELECT * FROM Locations')
+fhand = codecs.open('where.js','w', "utf-8")
+fhand.write("myData = [\n")
+count = 0
+for row in cur :
+    data = str(row[1]) # grave the row and convert to string 
+    try: js = json.loads(str(data))
+    except: continue
+# it will check if the data is ok to follow ohterwise it will go up
+    if not('status' in js and js['status'] == 'OK') : continue
+# if it is ok then contiue and pint the lat and long in the results colunm
+    lat = js["results"][0]["geometry"]["location"]["lat"]
+    lng = js["results"][0]["geometry"]["location"]["lng"]
+    if lat == 0 or lng == 0 : continue
+    where = js['results'][0]['formatted_address']
+    where = where.replace("'","")
+    try :
+        print where, lat, lng
+
+        count = count + 1
+        if count > 1 : fhand.write(",\n")
+        output = "["+str(lat)+","+str(lng)+", '"+where+"']"
+        fhand.write(output)
+    except:
+        continue
+# the result will be a json file with arrays of arrays
+fhand.write("\n];\n")
+cur.close()
+fhand.close()
+print count, "records written to where.js"
+print "Open where.html to view the data in a browser"
+# we can tun the first file and then we run it again 
