@@ -1,0 +1,30 @@
+# 7.1 Write a program that prompts for a file name, then opens that file and reads through the file, 
+#and print the contents of the file in upper case. Use the file words.txt to produce the output below.
+
+#You can download the sample data at http://www.pythonlearn.com/code/words.txt
+#You should use strip() or rstrip() to avoid double newlines.  You may need to scroll down to see a mis-match of the output.
+
+#Write a program that prompts for a file name
+#suffix = "MIND-NUMBING"
+#text = raw_input("Enter name of the file: ")
+#if text == "words":
+     #text = open("words.txt")#open the file  
+     #text = text.read() #read the file
+     #text = text.upper()#change to capital letters
+     #for line in text:
+          #line =line.rstrip()
+          #if line.endswith (suffix):
+               #print text
+#print text
+
+
+#option given in the exercise
+count = 0
+text = raw_input('Enter file name: ')# words.txt
+if len(text)==0:
+     text = 'words.txt'#this line allow us to avoid entering the name using the enter to do it
+print text
+fn = open(text)
+for line in fn: 
+     line = line.rstrip().upper() #delete white spaces and change to uppercase
+     print line
