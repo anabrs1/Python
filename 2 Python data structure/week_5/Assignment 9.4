@@ -1,0 +1,35 @@
+#9.4 Write a program to read through the mbox-short.txt and figure out who has the sent the greatest number of mail messages.
+# The program looks for 'From ' lines and takes the second word of those lines as the person who sent the mail. 
+# The program creates a Python dictionary that maps the sender's mail address to a count of the number of times they appear in the file.
+ #After the dictionary is produced, the program reads through the dictionary using a maximum loop to find the most prolific committer.
+
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+name = "mbox-short.txt"
+handle = open(name)
+words = list()                                         #create list to insert the emails
+counts = dict()                                        #create a dictionary to insert the occurrence of the emails --> email: x times
+
+#select emails that using the line taht starts with FROM, split them and append the email wich corresponds to word 1 to the words list
+for line in handle:
+    if not line.startswith("From:") : continue
+    line = line.split()
+    words.append(line[1])
+#print words                                            #print words list
+#for each email in the list count the occurrent and attach them to the diccionary created above
+for word in words:                                     #for the value in the list workds:
+     counts[word] = counts.get(word, 0) + 1            #count the number of time that this email appear
+#print counts.items()                                   #print the items of the diccionary
+
+#Max value loop                                        #Find the email that has sent the largest number of emails
+maxval = None
+maxkee = None
+for kee,val in counts.items():                         # since we word with dict we need to specity the two variables the iterative variables the kee and the value of the keyin the dictionary
+     if maxval == None or maxval < val:                #if the maxlvalue is smaller tahn val(in the dict) then the maxval will be the val, and add the name of the the makee (email) correspondent to that value
+          maxval = val
+          maxkee = kee
+     #print kee, val, maxkee, maxval #print vallue and the key
+print maxkee, maxval
+
+
+
