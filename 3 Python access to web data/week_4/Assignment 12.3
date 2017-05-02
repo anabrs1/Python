@@ -1,0 +1,36 @@
+# Assignment: Following Links in HTML Using BeautifulSoup
+
+# In this assignment you will write a Python program that expands on http://www.pythonlearn.com/code/urllinks.py. The program will use urllib to read the HTML from the data files below, extract the href= vaues from the anchor tags, scan for a tag that is in a particular 
+#position from the top and follow that link, repeat the process a number of times, and report the last name you find.
+
+# Note - this code must run in Python 2.x and you must download
+# http://www.pythonlearn.com/code/BeautifulSoup.py
+# Into the same folder as this program
+#  In this assignment you will write a Python program that expands on http://www.pythonlearn.com/code/urllinks.py.
+#The program will use urllib to read the HTML from the data files below,
+# extract the href= vaues from the anchor tags, scan for a tag that is in a particular position relative
+# to the first name in the list, follow that link and repeat the process a number of times and report the last name you find.
+# We provide two files for this assignment. One is a sample file where we give you the name for your testing and the other is the actual data you need to process for the assignment
+#
+#     Sample problem: Start at http://python-data.dr-chuck.net/known_by_Fikret.html
+#     Find the link at position 3 (the first name is 1). Follow that link. Repeat this process 4 times. The answer is the last name that you retrieve.
+#     Sequence of names: Fikret Montgomery Mhairade Butchi Anayah
+#     Last name in sequence: Anayah
+#     Actual problem: Start at: http://python-data.dr-chuck.net/known_by_Shane.html
+#     Find the link at position 18 (the first name is 1). Follow that link. Repeat this process 7 times. The answer is the last name that you retrieve.
+#     Hint: The first character of the name of the last page that you will load is: D
+
+import urllib                           #import library opens a network object denoted by a URL for reading
+from BeautifulSoup import *             #import the library BeautifulSoup library for pulling data out of HTML and XML files
+
+url = raw_input('Enter - ')                         #enter user input
+count = int(raw_input ('Enter count: '))            #enter user input
+position = int(raw_input ('Enter position: '))     #enter user input
+
+for line in range (count):                  # Create a loop to range of the timpes that has been entered by the user
+    html = urllib.urlopen(url).read()       #open the url input given by the user
+    #print html
+    soup = BeautifulSoup(html)              #create the oject where the BS will work on 'html'
+    tags = soup('a')                        # define the tag
+    url = tags[position-1].get('href', None)# get the href taht has this tag
+print url
