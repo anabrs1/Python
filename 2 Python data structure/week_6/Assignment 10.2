@@ -1,0 +1,32 @@
+#10.2 Write a program to read through the mbox-short.txt and figure out the distribution 
+#by hour of the day for each of the messages. You can pull the hour out from the 'From ' line 
+#by finding the time and then splitting the string a second time using a colon.
+
+#From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+#Once you have accumulated the counts for each hour, print out the counts, sorted by hour as shown below.
+
+name = raw_input("Enter file:")              # user input
+if len(name) < 1 : name = "mbox-short.txt"
+name = "mbox-short.txt"                      #open the file
+handle = open(name)                          
+hours = list()                               #create a list to append the number of hours
+counts = dict()                              #create a dictionary to count the number that the hours are repeated   
+
+for line in handle:
+     line = line.rstrip()                    #clean whitespaces
+     if not line.startswith('From ') : continue # select line that start with the FROM WARNING this is different from the syntaxt if  words[0] != 'From': continue (this adds only once the name to the list)
+     words = line.split()                    # split the words 
+     #print words[5]
+     hour = words[5]                         # crease the variable hours
+     pieces = hour.split(':')                # split againg the hours by : to separate the minutes and seconds
+     #print pieces           
+     hours.append(pieces [0])                # append to the list created above the hours (only the hours)     
+
+for hour in hours:                           #count the number of times that the same hour appear in the list and add it to the diccionary
+     counts[hour] = counts.get(hour,0)+1     
+#print counts
+
+for k,v in sorted(counts.items ()):          # finally sort the value key (hours) and value (number of times) taht are in the dicionary
+     print k,v
+
+
