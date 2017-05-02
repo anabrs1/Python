@@ -1,0 +1,19 @@
+# This code use a loop to enter the input of the used and make the average, sum and count of the number of entries.
+#count the number of time that runs
+count = 0
+total = 0
+#infinite loop
+while True:
+     inp = raw_input("Enter a number: ")
+     if inp == "done" : break
+     if len(inp) < 1: break # check empty line
+#do the work
+     try:
+          num = float(inp)
+     except:
+          print "invalid input"
+          continue # put continue and will start reading again the code from the begining. this is to avoid to read the remaining code
+     count = count +1
+     total = total +num
+     print num, total, count
+print "average", total / count
