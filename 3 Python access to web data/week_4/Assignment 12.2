@@ -1,0 +1,30 @@
+# Scraping HTML Data with BeautifulSoup
+# Note - this code must run in Python 2.x and you must download
+# http://www.pythonlearn.com/code/BeautifulSoup.py
+# Into the same folder as this program
+
+import urllib                           #import library opens a network object denoted by a URL for reading
+from BeautifulSoup import *             #import the library BeautifulSoup library for pulling data out of HTML and XML files
+stuff =list()                           # creat a list to add all the numbers taht are searched in the web site
+numbers = 0                             #set variable number to sum the total of the numbers
+
+url = raw_input('Enter - ')             #enter user input
+html = urllib.urlopen(url).read()       #open the url input given by the user
+#print html
+soup = BeautifulSoup(html)              #create the oject taht where the BS will work on
+#print soup
+
+tags = soup('span')                     # Retrieve all of the anchor tags
+for tag in tags:
+    print 'TAG:',tag                    # Look at the parts of a tag
+    print 'URL:',tag.get('href', None)
+    print 'Contents:',tag.contents[0]
+    print 'Attrs:',tag.attrs
+    for line in tag:                    # clean the tags and find the digits
+    	line = line.rstrip()
+    	stuff = re.findall ('[0-9]+', line)
+    	inp = list(stuff)              #add the digits found in a list
+    	if stuff == []: continue
+    	for line in stuff:             # sum all the numbers in the list
+    		numbers = numbers + int(line)
+    print numbers
