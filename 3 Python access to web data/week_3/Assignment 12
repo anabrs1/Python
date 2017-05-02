@@ -1,0 +1,21 @@
+# Exploring the HyperText Transport Protocol
+
+'You are to retrieve the following document using the HTTP protocol in a way that you can examine the HTTP Response headers. 
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('www.data.pr4e.org', 80))
+mysock.send('GET http://www.data.pr4e.org/intro-short.txt HTTP/1.0\n\n')
+
+while True:
+    data = mysock.recv(1000)
+    if ( len(data) < 1 ) :
+        break
+    print data, type(data), len(data);
+
+mysock.close()
+
+    Contact GitHub API Training Shop Blog About 
+
+    © 2017 GitHub, Inc. Terms Privacy Security Status Help 
+
