@@ -1,0 +1,33 @@
+ # Extracting Data from JSON
+
+# In this assignment you will write a Python program somewhat similar to http://www.pythonlearn.com/code/json2.py. The program will prompt for a URL, 
+# read the JSON data from that URL using urllib and then parse and extract the comment counts from the JSON data, compute the sum of the numbers in the file and enter the sum below:
+
+# We provide two files for this assignment. One is a sample file where we give you the sum for your testing and the other is the actual data you need to process for the assignment.
+
+    # Sample data: http://python-data.dr-chuck.net/comments_42.json (Sum=2553)
+    # Actual data: http://python-data.dr-chuck.net/comments_367692.json (Sum ends with 64)
+	
+	
+import json
+import urllib
+counts = []
+serviceurl = 'http://python-data.dr-chuck.net/comments_367692.json?'# DONT FORGET TO ADD THE INTERROGATION POINT
+while True:														# open infinite loop; break if the input is empty
+	input = raw_input("Enter URL: ")
+	if len(input) < 1 : break
+	print 'Retreiving URL', input									
+	connection = urllib.urlopen(input)
+	rdata = connection.read()
+	print 'Retrieved', len(rdata), 'characters'
+	parsed_data = json.loads(rdata)
+	counts = []											
+
+	comments = parsed_data['comments']
+	print comments
+
+	for comment in comments:
+		counts.append(comment['count'])						# append to the list
+
+	print "Count: {0}".format(len(counts))
+	print "Sum: {0}".format(sum(counts))
